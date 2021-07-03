@@ -1,0 +1,8 @@
+MySql
+
+user: root
+pasw: rootroot
+
+login
+user: admin@admin.com
+psw: Admin123456
