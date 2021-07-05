@@ -16,9 +16,10 @@
 <script>
 import MetronicLayout from '@/Layouts/MetronicLayout'
     export default {
-        components: {
-            MetronicLayout,
-        }
+        layout: MetronicLayout,
+        props:{
+            name_props:Object
+        },
     }
 </script>
 <style>

@@ -22,7 +22,7 @@ class CreateEmpleadosTable extends Migration
             $table->foreign('puesto_id')->references('id')->on('puestos');
             $table->integer('numero')->unique();
             $table->string('nombre')->unique();
-            $table->foreignId('campu_id');
+            $table->foreignId('campu_id')->nullable();;
             $table->foreign('campu_id')->references('id')->on('campus');
 
             $table->timestamps();

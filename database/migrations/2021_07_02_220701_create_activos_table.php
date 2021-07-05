@@ -20,8 +20,6 @@ class CreateActivosTable extends Migration
             $table->foreign('material_id')->references('id')->on('materiales');
             $table->foreignId('entrada_id');
             $table->foreign('entrada_id')->references('id')->on('entradas');
-            $table->foreignId('ubicacion_id');
-            $table->foreign('ubicacion_id')->references('id')->on('ubicaciones');
             $table->string('observaciones');
             $table->decimal('costo',9,2);
             $table->string('numeroinventario')->unique();
