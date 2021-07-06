@@ -74,7 +74,7 @@ Route::get('usuario/search', [UserController::class,'search'])
 /**
  * PARTIDAS
  */
-Route::middleware('auth')->get('partidas/search', [PartidaController::class,'search']);
+//Route::middleware('auth')->get('partidas/search', [PartidaController::class,'search']);
 Route::middleware('auth')->get('partidas', [PartidaController::class, 'index'])->name('partidas');
 Route::middleware('auth')->get('partidas/create', [PartidaController::class, 'create'])->name('partidas.create');
 Route::middleware('auth')->post('partidas', [PartidaController::class, 'store'])->name('partidas.store');
