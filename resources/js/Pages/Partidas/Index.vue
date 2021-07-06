@@ -54,7 +54,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="partida in listPaginated" :key="partida.id">
+                                    <tr v-for="partida in partidas.data" :key="partida.id">
                                         <td class="text-right text-uppercase py-1">                                                
                                             <span v-text="partida.codigo" 
                                                 class="
@@ -239,7 +239,7 @@ export default {
         }
     },
     mounted(){
-        this.listPartidas = this.partidas;
+        //this.listPartidas = this.partidas;
     },
     methods:{
         async search(){

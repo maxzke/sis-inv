@@ -26,7 +26,7 @@ class PartidaController extends Controller
                 ->orderBy('codigo', 'asc')
                 ->get();
         return Inertia::render('Partidas/Index',[
-            'partidas' => $partidas
+            'partidas' => Partida::paginate(5)
             ]);
     }
 }
