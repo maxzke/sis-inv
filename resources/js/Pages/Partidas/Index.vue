@@ -10,11 +10,10 @@
                         <h3 class="card-title">Listado de Partidas</h3>
                         <h3 class="card-title align-items-start flex-column">
                             <input
-                                type="text"
+                                type="search"
                                 class="form-control form-control-sm"
                                 placeholder="Buscar"
-                                v-model="paramSearch"
-                                @keyup.enter="search"
+                                v-model="params.search"
                             />                            
                         </h3>
                         <div class="card-toolbar">
@@ -134,60 +133,7 @@
                         <!-- Paginacion -->
                         <div class="row">
                             <div class="col-ms-12">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
-                                        <li
-                                            class="page-item"
-                                            v-if="pageNumber > 0"
-                                        >
-                                            <a
-                                                class="page-link"
-                                                href="#"
-                                                aria-label="Previous"
-                                                @click.prevent="prevPage"
-                                            >
-                                                <span aria-hidden="true"
-                                                    >&laquo;</span
-                                                >
-                                            </a>
-                                        </li>
-                                        <li
-                                            class="page-item"
-                                            v-for="(page, index) in pagesList"
-                                            :key="index"
-                                            :class="
-                                                page == pageNumber
-                                                    ? 'active'
-                                                    : ''
-                                            "
-                                        >
-                                            <a
-                                                class="page-link"
-                                                href="#"
-                                                @click.prevent="
-                                                    selectPage(page)
-                                                "
-                                            >
-                                                {{ page + 1 }}
-                                            </a>
-                                        </li>
-                                        <li
-                                            class="page-item"
-                                            v-if="pageNumber < pageCount - 1"
-                                        >
-                                            <a
-                                                class="page-link"
-                                                href="#"
-                                                aria-label="Next"
-                                                @click.prevent="nextPage"
-                                            >
-                                                <span aria-hidden="true"
-                                                    >&raquo;</span
-                                                >
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                                <pagination class="mt-6" :links="partidas.links" />                                
                             </div>
                         </div>
                         <!-- PAginacion ends -->
@@ -201,69 +147,30 @@
 </template>
 <script>
 import MetronicLayout from "@/Layouts/MetronicLayout";
+import Pagination from '@/Metronic/Pagination'
 export default {
     layout: MetronicLayout,
+    components: {
+        Pagination
+    },
     props: {
         partidas: Object,
     },
     data(){
         return{
-        paramSearch:'',
-        listPartidas:[],
-        //paginacion
-        pageNumber:0,
-        perPage:10,
-        loading:true
+            params:{
+                search:null
+            },
+        };
+    },
+    watch:{
+        params:{
+            handler(){
+                this.$inertia.get(this.route('partidas'), this.params,{ replace:true, preserveState:true });
+            },
+            deep:true,
         }
     },
-    computed:{
-        pageCount(){
-        let a = this.listPartidas.length;
-        let b = this.perPage;
-        return Math.ceil(a/b);      
-        },
-        listPaginated(){
-        let inicio = this.pageNumber * this.perPage;
-        let fin = inicio + this.perPage;
-        return this.listPartidas.slice(inicio,fin);
-        },
-        pagesList(){
-        let pageCount = this.pageCount;
-        let count = 0;
-        let pagesArray = [];
-        while(count < pageCount){
-            pagesArray.push(count);
-            count++;
-        }
-        return pagesArray;
-        }
-    },
-    mounted(){
-        //this.listPartidas = this.partidas;
-    },
-    methods:{
-        async search(){
-        let url = 'partidas/search';
-        await axios.get(url,{
-                params:{
-                    'paramSearch':this.paramSearch
-                }
-            }).then(response => {
-                console.log(response);
-                this.listPartidas = response.data;
-            })
-        },
-        //Paginacion
-        nextPage(){
-        this.pageNumber++;
-        },
-        prevPage(){
-        this.pageNumber--;
-        },
-        selectPage(page){
-        this.pageNumber = page;
-        }
-    }
 };
 </script>
 <style>
