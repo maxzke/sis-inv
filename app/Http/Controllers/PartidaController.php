@@ -33,17 +33,14 @@ class PartidaController extends Controller
 
         Request::validate(
             [            
-                'name' => ['required', Rule::unique('users')],
-                'email' => ['required',Rule::unique('users'),'email'],
-                'password' => ['min:8']
+                'codigo' => ['required', Rule::unique('partidas')],
+                'nombre' => ['required',Rule::unique('partidas')]
             ],
             [
-                'name.required' => 'El nombre es requerido.',
-                'name.unique' => 'El nombre ya se encuentra registrado.',
-                'email.required' => 'El correo es requerido',
-                'email.unique' => 'El correo ya se encuentra registrado.',
-                'email.email' => 'Correo: Formato no válido.',
-                'password.min' => 'La contraseña debe contener almenos 8 caracteres.'
+                'codigo.required' => 'El codigo es requerido.',
+                'codigo.unique' => 'El codigo ya se encuentra registrado.',
+                'nombre.required' => 'El nombre es requerido',
+                'nombre.unique' => 'El nombre ya se encuentra registrado.'
             ]
         );
 
@@ -54,6 +51,38 @@ class PartidaController extends Controller
         $partida->save();
         return Redirect::back()->with('success', 'User updated.');
        
+    }
+
+
+    public function edit(Partida $partida){
+        return Inertia::render('Partidas/Edit',[
+            'partida' => [
+                'id' => $partida->id,
+                'codigo' => $partida->codigo,
+                'nombre' => $partida->nombre,
+                'detalle' => $partida->detalle,
+            ]
+        ]);
+    }
+
+    public function update(Partida $partida){
+        $partida->update(
+            Request::validate(
+                [            
+                    'codigo' => ['required',Rule::unique('partidas')->ignore($partida->id)],
+                    'nombre' => ['required',Rule::unique('partidas')->ignore($partida->id)],
+                    'detalle' => ['nullable']
+                ],
+                [
+                    'codigo.required' => 'El codigo es requerido.',
+                    'codigo.unique' => 'El codigo ya se encuentra registrado.',
+                    'nombre.required' => 'El nombre es requerido',
+                    'nombre.unique' => 'El nombre ya se encuentra registrado.'
+                ]
+            )
+        );
+
+        return Redirect::back()->with('success', 'Partida updated.');
     }
 
 

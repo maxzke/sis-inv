@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PartidaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\ProveedoreController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
@@ -74,7 +75,6 @@ Route::get('usuario/search', [UserController::class,'search'])
 /**
  * PARTIDAS
  */
-//Route::middleware('auth')->get('partidas/search', [PartidaController::class,'search']);
 Route::middleware('auth')->get('partidas', [PartidaController::class, 'index'])->name('partidas');
 Route::middleware('auth')->get('partidas/create', [PartidaController::class, 'create'])->name('partidas.create');
 Route::middleware('auth')->post('partidas', [PartidaController::class, 'store'])->name('partidas.store');
@@ -82,3 +82,13 @@ Route::middleware('auth')->get('partidas/{partida}/edit', [PartidaController::cl
 Route::middleware('auth')->put('partidas/{partida}', [PartidaController::class, 'update'])->name('partidas.update');
 Route::middleware('auth')->delete('partidas/{partida}', [PartidaController::class, 'destroy'])->name('partidas.destroy');
 Route::middleware('auth')->put('partidas/{partida}/restore', [PartidaController::class, 'restore'])->name('partidas.restore');
+/**
+ * PROVEEDORES
+ */
+Route::middleware('auth')->get('proveedores', [PartidaController::class, 'index'])->name('proveedores');
+Route::middleware('auth')->get('proveedores/create', [ProveedoreController::class, 'create'])->name('proveedores.create');
+// Route::middleware('auth')->post('proveedores', [PartidaController::class, 'store'])->name('proveedores.store');
+// Route::middleware('auth')->get('proveedores/{partida}/edit', [PartidaController::class, 'edit'])->name('proveedores.edit');
+// Route::middleware('auth')->put('proveedores/{partida}', [PartidaController::class, 'update'])->name('proveedores.update');
+// Route::middleware('auth')->delete('proveedores/{partida}', [PartidaController::class, 'destroy'])->name('proveedores.destroy');
+// Route::middleware('auth')->put('proveedores/{partida}/restore', [PartidaController::class, 'restore'])->name('proveedores.restore');

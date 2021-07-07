@@ -6,11 +6,10 @@
             <div class="container">
               <div class="row">
                 <div class="col-md-6 offset-3">
-                    <!-- Registrar Nuevo Usuario -->
                     <div class="card card-custom card-stretch gutter-b">
                     <!--begin::Header-->
                     <div class="card-header border-0 py-5">                        
-                        <h3 class="card-title"><strong> Partida&nbsp;</strong> / Nueva</h3>
+                        <h3 class="card-title"><strong> Partida&nbsp;</strong> / Editar</h3>
                         <div class="card-toolbar">
                           <inertia-link :href="route('partidas')" as="button" type="button" 
                           class="btn btn-sm btn-light-warning
@@ -25,7 +24,7 @@
                     <!--begin::Body-->
                     <div class="row">
                       <div class="col-md-8 mx-auto">
-                        <form @submit.prevent="store">
+                        <form @submit.prevent="update">
                           <div class="card-body pt-0 pb-3">
                             <div class="tab-content">
                               <!--begin::form-->
@@ -36,7 +35,7 @@
                                     <label>Código</label>
                                     <input
                                       type="text"
-                                      class="form-control form-control-sm form-control-solid"
+                                      class="form-control form-control-sm form-control-solid text-capitalize"
                                       v-model="form.codigo"
                                       :class="(form.errors.codigo  ? 'is-invalid' : '')"
                                       />
@@ -80,7 +79,7 @@
                             <div class="row">
                                 <div class="col-md-12 text-center">
                                     <button type="submit" class="btn btn-sm btn-light-success mr-2" >
-                                    Guardar
+                                    Actualizar
                                     </button>
                                 </div>
                             </div>
@@ -89,9 +88,7 @@
                         </form>
                       </div>
                     </div>
-                    
                   </div>
-                  <!-- Registrar Nuevo Usuario end -->
                 </div>
               </div>
             </div>
@@ -102,32 +99,31 @@
         </div>
 </template>
 
+
 <script>
 import MetronicLayout from '@/Layouts/MetronicLayout'
 export default {
     layout: MetronicLayout,
+    props:{
+        partida:Object
+    },
     data(){
         return{
             form: this.$inertia.form({
-                codigo:null,
-                nombre:null,
-                detalle:null
+                codigo:this.partida.codigo,
+                nombre:this.partida.nombre,
+                detalle:this.partida.detalle
             }),
         }
     },
     methods:{
-        store() {
-            this.form.post(this.route('partidas.store'), {
-                onSuccess: () => [this.alert(),this.resetForm()]
+        update() {
+            this.form.put(this.route('partidas.update',this.partida.id), {
+                onSuccess: () => [this.alert()]
             })
         },
         alert(){
-            swal.fire("", "Usuario Guardado!", "success");
-        },
-        resetForm(){
-            this.form.codigo=null;
-            this.form.nombre=null;
-            this.form.detalle=null;
+            swal.fire("", "Actualizado !", "success");
         }
     }
 };
