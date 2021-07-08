@@ -8,7 +8,7 @@
                 <div class="col-md-12">
                     <div class="card card-custom card-stretch gutter-b">
                     <!--begin::Header-->
-                    <div class="card-header border-0 py-5">                        
+                    <div class="card-header border-0">                        
                         <h3 class="card-title"><strong> Proveedor&nbsp;</strong> / Nuevo</h3>
                         <div class="card-toolbar">
                           <inertia-link :href="route('proveedores')" as="button" type="button" 
@@ -39,7 +39,7 @@
                                     :class="(form.errors.codigo  ? 'is-invalid' : '')"
                                     />
                                   <span class="form-text text-danger"
-                                    >{{ form.errors.codigo }}.</span
+                                    >{{ form.errors.codigo }}</span
                                     >
                                 </div> 
                                 <!-- NOMBRE  -->                  
@@ -52,7 +52,7 @@
                                     :class="(form.errors.nombre ? 'is-invalid' : '')"
                                     />
                                     <span class="form-text text-danger"
-                                    >{{ form.errors.nombre }}.</span
+                                    >{{ form.errors.nombre }}</span
                                     >
                                 </div>
                                 <!-- RFC  -->                  
@@ -65,14 +65,14 @@
                                     :class="(form.errors.rfc ? 'is-invalid' : '')"
                                     />
                                     <span class="form-text text-danger"
-                                    >{{ form.errors.rfc }}.</span
+                                    >{{ form.errors.rfc }}</span
                                     >
                                 </div>
-                                <!-- RFC  -->                  
+                                <!-- TELEFONO  -->                  
                                 <div class="form-group col-md-2">
                                     <label>Telefono</label>
                                     <input
-                                    type="text"
+                                    type="number"
                                     class="form-control form-control-sm form-control-solid text-uppercase"
                                     v-model="form.telefono"
                                     :class="(form.errors.telefono ? 'is-invalid' : '')"
@@ -150,7 +150,7 @@
                                 <div class="form-group col-md-2">
                                     <label>CP</label>
                                     <input
-                                    type="text"
+                                    type="number"
                                     class="form-control form-control-sm form-control-solid text-uppercase"
                                     v-model="form.cp"
                                     :class="(form.errors.cp ? 'is-invalid' : '')"
@@ -218,8 +218,7 @@
                           <!--end::footer-->
                         </form>
                       </div>
-                    </div>
-                    
+                    </div>                    
                   </div>
                   <!-- Registrar Nuevo Usuario end -->
                 </div>
@@ -241,8 +240,15 @@ export default {
             form: this.$inertia.form({
                 codigo:null,
                 nombre:null,
-                detalle:null
-            }),
+                rfc:null,
+                telefono:null,
+                ciudad:null,
+                estado:null,
+                cp:null,
+                calle:null,
+                colonia:null,
+                giro:null,
+            })
         }
     },
     methods:{
@@ -252,12 +258,19 @@ export default {
             })
         },
         alert(){
-            swal.fire("", "Usuario Guardado!", "success");
+            swal.fire("Guardado!", "", "success");
         },
         resetForm(){
             this.form.codigo=null;
             this.form.nombre=null;
-            this.form.detalle=null;
+            this.form.rfc=null;
+            this.form.telefono=null;
+            this.form.ciudad=null;
+            this.form.estado=null;
+            this.form.cp=null;
+            this.form.calle=null;
+            this.form.colonia=null;
+            this.form.giro=null;
         }
     }
 };

@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\AreaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PartidaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProveedoreController;
+use App\Http\Controllers\PuestoController;
+use App\Http\Controllers\UbicacioneController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
@@ -85,10 +88,40 @@ Route::middleware('auth')->put('partidas/{partida}/restore', [PartidaController:
 /**
  * PROVEEDORES
  */
-Route::middleware('auth')->get('proveedores', [PartidaController::class, 'index'])->name('proveedores');
+Route::middleware('auth')->get('proveedores', [ProveedoreController::class, 'index'])->name('proveedores');
 Route::middleware('auth')->get('proveedores/create', [ProveedoreController::class, 'create'])->name('proveedores.create');
-// Route::middleware('auth')->post('proveedores', [PartidaController::class, 'store'])->name('proveedores.store');
-// Route::middleware('auth')->get('proveedores/{partida}/edit', [PartidaController::class, 'edit'])->name('proveedores.edit');
-// Route::middleware('auth')->put('proveedores/{partida}', [PartidaController::class, 'update'])->name('proveedores.update');
+Route::middleware('auth')->post('proveedores', [ProveedoreController::class, 'store'])->name('proveedores.store');
+Route::middleware('auth')->get('proveedores/{proveedor}/edit', [ProveedoreController::class, 'edit'])->name('proveedores.edit');
+Route::middleware('auth')->put('proveedores/{proveedor}', [ProveedoreController::class, 'update'])->name('proveedores.update');
+// Route::middleware('auth')->delete('proveedores/{partida}', [PartidaController::class, 'destroy'])->name('proveedores.destroy');
+// Route::middleware('auth')->put('proveedores/{partida}/restore', [PartidaController::class, 'restore'])->name('proveedores.restore');
+/**
+ * AREAS
+ */
+Route::middleware('auth')->get('areas', [AreaController::class, 'index'])->name('areas');
+Route::middleware('auth')->get('areas/create', [AreaController::class, 'create'])->name('areas.create');
+Route::middleware('auth')->post('areas', [AreaController::class, 'store'])->name('areas.store');
+Route::middleware('auth')->get('areas/{area}/edit', [AreaController::class, 'edit'])->name('areas.edit');
+Route::middleware('auth')->put('areas/{area}', [AreaController::class, 'update'])->name('areas.update');
+// Route::middleware('auth')->delete('proveedores/{partida}', [PartidaController::class, 'destroy'])->name('proveedores.destroy');
+// Route::middleware('auth')->put('proveedores/{partida}/restore', [PartidaController::class, 'restore'])->name('proveedores.restore');
+/**
+ * PUESTOS
+ */
+Route::middleware('auth')->get('puestos', [PuestoController::class, 'index'])->name('puestos');
+Route::middleware('auth')->get('puestos/create', [PuestoController::class, 'create'])->name('puestos.create');
+Route::middleware('auth')->post('puestos', [PuestoController::class, 'store'])->name('puestos.store');
+Route::middleware('auth')->get('puestos/{puesto}/edit', [PuestoController::class, 'edit'])->name('puestos.edit');
+Route::middleware('auth')->put('puestos/{puesto}', [PuestoController::class, 'update'])->name('puestos.update');
+// Route::middleware('auth')->delete('proveedores/{partida}', [PartidaController::class, 'destroy'])->name('proveedores.destroy');
+// Route::middleware('auth')->put('proveedores/{partida}/restore', [PartidaController::class, 'restore'])->name('proveedores.restore');
+/**
+ * UBICACIONES
+ */
+Route::middleware('auth')->get('ubicaciones', [UbicacioneController::class, 'index'])->name('ubicaciones');
+Route::middleware('auth')->get('ubicaciones/create', [UbicacioneController::class, 'create'])->name('ubicaciones.create');
+Route::middleware('auth')->post('ubicaciones', [UbicacioneController::class, 'store'])->name('ubicaciones.store');
+Route::middleware('auth')->get('ubicaciones/{ubicacion}/edit', [UbicacioneController::class, 'edit'])->name('ubicaciones.edit');
+Route::middleware('auth')->put('ubicaciones/{ubicacion}', [UbicacioneController::class, 'update'])->name('ubicaciones.update');
 // Route::middleware('auth')->delete('proveedores/{partida}', [PartidaController::class, 'destroy'])->name('proveedores.destroy');
 // Route::middleware('auth')->put('proveedores/{partida}/restore', [PartidaController::class, 'restore'])->name('proveedores.restore');
