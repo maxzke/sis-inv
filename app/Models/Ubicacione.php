@@ -12,5 +12,9 @@ class Ubicacione extends Model
     protected $fillable = [
         'nombre'
     ];
+
+    public function resguardo(){
+        return $this->hasMany(Resguardo::class);
+    }
     
 }

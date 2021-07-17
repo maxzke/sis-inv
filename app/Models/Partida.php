@@ -14,4 +14,8 @@ class Partida extends Model
         'nombre',
         'detalle'
     ];
+
+    public function materiale(){
+        return $this->hasMany(Materiale::class);
+    }
 }
